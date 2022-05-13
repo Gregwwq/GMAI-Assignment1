@@ -3,7 +3,6 @@ using System.Collections;
 
 public abstract class FSMState<T>
 {
-    // using readonly so the name cannot be changed and can be initialized at runtime
     public readonly T Name;
 
     protected FSM<string> fsm;
