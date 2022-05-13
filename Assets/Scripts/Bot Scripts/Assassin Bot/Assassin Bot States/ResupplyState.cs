@@ -40,6 +40,13 @@ namespace AssassinBot
             }
             else
             {
+                main.DisguiseCount = 5;
+                main.InvisCount = 5;
+                main.DecoyCount = 5;
+
+                main.SniperBullets = 1;
+                main.ThrowingKnives = 2;
+
                 fsm.SetState("Search");
             }
         }

@@ -59,7 +59,7 @@ namespace TargetBot
                 Vector3.MoveTowards(bot.position, targetLocation, main.Speed * Time.deltaTime);
 
             bot.rotation =
-                Quaternion.RotateTowards(bot.rotation, lookRotation, 200 * Time.deltaTime);
+                Quaternion.RotateTowards(bot.rotation, lookRotation, main.RotateSpeed * Time.deltaTime);
         }
     }
 }

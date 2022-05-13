@@ -10,13 +10,16 @@ public class TargetBotFSM : MonoBehaviour
 
     public bool Targeted { get; private set; }
     public float Speed { get; private set; }
+    public float RotateSpeed { get; private set; }
 
     GameObject head, body;
 
     public TargetBotFSM()
     {
         Targeted = false;
+        
         Speed = 1f;
+        RotateSpeed = 200f;
     }
 
     void Start()
