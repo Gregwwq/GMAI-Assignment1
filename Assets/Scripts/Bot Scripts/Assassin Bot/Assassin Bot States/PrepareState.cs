@@ -10,12 +10,13 @@ namespace AssassinBot
 
         AssassinBotFSM main;
 
-        Transform currentLocation, resupplyStation;
+        Transform bot, resupplyStation;
         Quaternion lookRotation;
 
         public PrepareState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
         {
             main = _main;
+            bot = main.gameObject.transform;
 
             resupplyStation = GameObject.Find("Resupply Station").transform;
         }
@@ -31,7 +32,7 @@ namespace AssassinBot
             {
                 MoveTowardsResupplyStation();
 
-                if (Vector3.Distance(currentLocation, resupplyStation) < 0.001f)
+                if (Vector3.Distance(bot.position, resupplyStation.position) < 0.001f)
                 {
                     fsm.SetState("Resupply");
                 }
@@ -49,14 +50,13 @@ namespace AssassinBot
 
         void MoveTowardsResupplyStation()
         {
-            currentLocation = main.gameObject.transform.position;
-            lookRotation = Quaternion.LookRotation((resupplyStation - currentLocation), Vector3.up);
+            lookRotation = Quaternion.LookRotation((resupplyStation.position - bot.position), Vector3.up);
 
-            main.gameObject.transform.position =
-                Vector3.MoveTowards(currentLocation, resupplyStation, main.Speed * Time.deltaTime);
+            bot.position =
+                Vector3.MoveTowards(bot.position, resupplyStation.position, main.Speed * Time.deltaTime);
 
-            main.gameObject.transform.rotation =
-                Quaternion.RotateTowards(main.gameObject.transform.rotation, lookRotation, 200 * Time.deltaTime);
+            bot.rotation =
+                Quaternion.RotateTowards(bot.rotation, lookRotation, 200 * Time.deltaTime);
         }
     }
 }

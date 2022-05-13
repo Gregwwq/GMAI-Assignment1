@@ -10,14 +10,17 @@ namespace AssassinBot
 
         AssassinBotFSM main;
 
+        Transform bot;
+
         public SearchState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
         {
             main = _main;
+            bot = main.gameObject.transform;
         }
 
         public override void Enter()
         {
-
+            Debug.Log("SEARCH: searching for a target bot to assassinate");
         }
 
         public override void Execute()

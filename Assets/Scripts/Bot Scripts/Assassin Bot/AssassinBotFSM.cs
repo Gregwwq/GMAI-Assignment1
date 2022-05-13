@@ -10,16 +10,18 @@ public class AssassinBotFSM : MonoBehaviour
 
     public enum Arsenal { None, Knife, Gun };
     public Arsenal Weapon { get; set; }
+    public float Speed { get; private set; }
 
     public int DisguiseCount, InvisCount, DecoyCount;
 
     public AssassinBotFSM()
     {
+        Speed = 2f;
+        Weapon = Arsenal.None;
+
         DisguiseCount = 0;
         InvisCount = 0;
         DecoyCount = 0;
-
-        Weapon = Arsenal.None;
     }
 
     void Start()

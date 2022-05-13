@@ -25,7 +25,7 @@ namespace AssassinBot
 
             interactSpot = GameObject.Find("Resupply Station").transform.Find("Interact Spot");
 
-            main.gameObject.transform.position = interactSpot;
+            main.gameObject.transform.position = interactSpot.position;
 
             elap = 0f;
         }
@@ -46,7 +46,7 @@ namespace AssassinBot
 
         public override void Exit()
         {
-
+            Debug.Log("RESUPPLY: resupply completed");
         }
     }
 }

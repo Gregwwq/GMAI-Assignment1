@@ -11,24 +11,26 @@ namespace TargetBot
         TargetBotFSM main;
 
         float minX, maxX, minZ, maxZ;
-        Vector3 targetLocation, currentLocation;
+        Transform bot;
+        Vector3 targetLocation;
         Quaternion lookRotation;
 
         public WanderState(FSM<string> _fsm, TargetBotFSM _main) : base(_fsm, Name)
         {
             main = _main;
+            bot = main.gameObject.transform;
         }
 
         public override void Enter()
         {
-            targetLocation = main.gameObject.transform.position;
+            targetLocation = bot.position;
         }
 
         public override void Execute()
         {
             Move();
 
-            if (Vector3.Distance(currentLocation, targetLocation) < 0.001f)
+            if (Vector3.Distance(bot.position, targetLocation) < 0.001f)
             {
                 UpdateNewMovement();
             }
@@ -41,24 +43,23 @@ namespace TargetBot
 
         void UpdateNewMovement()
         {
-            minX = currentLocation.x - 8;
-            maxX = currentLocation.x + 8;
-            minZ = currentLocation.z - 8;
-            maxZ = currentLocation.z + 8;
+            minX = bot.position.x - 8;
+            maxX = bot.position.x + 8;
+            minZ = bot.position.z - 8;
+            maxZ = bot.position.z + 8;
 
-            targetLocation = new Vector3(Random.Range(minX, maxX), currentLocation.y, Random.Range(minZ, maxZ));
+            targetLocation = new Vector3(Random.Range(minX, maxX), bot.position.y, Random.Range(minZ, maxZ));
 
-            lookRotation = Quaternion.LookRotation((targetLocation - currentLocation), Vector3.up);
+            lookRotation = Quaternion.LookRotation((targetLocation - bot.position), Vector3.up);
         }
 
         void Move()
         {
-            currentLocation = main.gameObject.transform.position;
+            bot.position =
+                Vector3.MoveTowards(bot.position, targetLocation, main.Speed * Time.deltaTime);
 
-            main.gameObject.transform.position =
-                Vector3.MoveTowards(currentLocation, targetLocation, main.Speed * Time.deltaTime);
-        
-            main.gameObject.transform.rotation = Quaternion.RotateTowards(main.gameObject.transform.rotation, lookRotation, 200 * Time.deltaTime);
+            bot.rotation =
+                Quaternion.RotateTowards(bot.rotation, lookRotation, 200 * Time.deltaTime);
         }
     }
 }
