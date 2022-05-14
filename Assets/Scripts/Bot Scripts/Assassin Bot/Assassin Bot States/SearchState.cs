@@ -36,7 +36,7 @@ namespace AssassinBot
 
             foreach (GameObject target in targets)
             {
-                if (Vector3.Distance(bot.position, target.transform.position) <= 10)
+                if (Vector3.Distance(bot.position, target.transform.position) <= 15)
                 {
                     main.EliminationTarget = target;
                     fsm.SetState("Disguise");
@@ -63,6 +63,8 @@ namespace AssassinBot
 
         public override void Exit()
         {
+            bot.LookAt(new Vector3(main.EliminationTarget.transform.position.x, bot.position.y, main.EliminationTarget.transform.position.z));
+
             Debug.Log("SEARCH: target found!");
         }
     }

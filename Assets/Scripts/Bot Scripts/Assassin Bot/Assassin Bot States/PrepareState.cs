@@ -50,6 +50,8 @@ namespace AssassinBot
 
         void MoveTowardsResupplyStation()
         {
+            Debug.Log("PREPARE: heading to the resupply station");
+            
             lookRotation = Quaternion.LookRotation((resupplyStation.position - bot.position), Vector3.up);
 
             bot.position =

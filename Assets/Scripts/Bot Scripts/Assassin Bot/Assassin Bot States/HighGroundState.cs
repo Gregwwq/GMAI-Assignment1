@@ -28,7 +28,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
-            if (Vector3.Distance(bot.position, highGround.position) <= 0.001f)
+            if (Vector3.Distance(bot.position, highGround.position) <= 2f)
             {
                 bot.position = highGround.Find("Standing Spot").position;
                 fsm.SetState("Aim Sniper");

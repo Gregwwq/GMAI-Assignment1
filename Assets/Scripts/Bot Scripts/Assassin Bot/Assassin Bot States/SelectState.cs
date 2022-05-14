@@ -28,8 +28,9 @@ namespace AssassinBot
 
         public override void Execute()
         {
-            if(elap >= 1f)
+            if (elap >= 1f)
             {
+                choice = 0;//Random.Range(0, 2);
                 Proceed();
             }
             else elap += Time.deltaTime;
@@ -42,26 +43,38 @@ namespace AssassinBot
 
         void Proceed()
         {
-            choice = Random.Range(0, 2);
-
-            switch(choice)
+            switch (choice)
             {
                 case 0:
                     main.EquipSword();
-                    fsm.SetState("Pursue");
                     Debug.Log("SELECT: sword equipped");
-                    break;
-                
-                case 1:
-                    main.EquipThrowingKnife();
                     fsm.SetState("Pursue");
-                    Debug.Log("SELECT: throwing knives equipped");
                     break;
-                
+
+                case 1:
+                    if (main.ThrowingKnives < 1)
+                    {
+                        choice = Random.Range(0, 1) == 0 ? 0 : 2;
+                        Proceed();
+                        return;
+                    }
+
+                    main.EquipThrowingKnife();
+                    Debug.Log("SELECT: throwing knives equipped");
+                    fsm.SetState("Pursue");
+                    break;
+
                 case 2:
+                    if (main.SniperBullets < 1)
+                    {
+                        choice = Random.Range(0, 1);
+                        Proceed();
+                        return;
+                    }
+
                     main.EquipSniper();
-                    fsm.SetState("High Ground");
                     Debug.Log("SELECT: sniper equipped");
+                    fsm.SetState("High Ground");
                     break;
             }
         }

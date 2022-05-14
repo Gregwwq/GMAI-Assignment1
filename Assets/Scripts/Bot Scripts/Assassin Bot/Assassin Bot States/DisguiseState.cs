@@ -10,14 +10,16 @@ namespace AssassinBot
 
         AssassinBotFSM main;
 
-        GameObject bot;
+        GameObject original, disguise;
 
         float elap;
 
         public DisguiseState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
         {
             main = _main;
-            bot = main.gameObject;
+
+            original = main.gameObject.transform.Find("Original").gameObject;
+            disguise = main.gameObject.transform.Find("Disguise").gameObject;
         }
 
         public override void Enter()
@@ -31,6 +33,7 @@ namespace AssassinBot
         {
             if(elap >= 1f)
             {
+                ChangeToDisguise();
                 fsm.SetState("Select Weapon");
             }
             else elap += Time.deltaTime;
@@ -39,6 +42,12 @@ namespace AssassinBot
         public override void Exit()
         {
             Debug.Log("DISGUISE: disguise done");
+        }
+
+        void ChangeToDisguise()
+        {
+            original.SetActive(false);
+            disguise.SetActive(true);
         }
     }
 }

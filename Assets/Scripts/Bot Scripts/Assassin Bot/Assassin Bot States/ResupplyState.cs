@@ -10,8 +10,6 @@ namespace AssassinBot
 
         AssassinBotFSM main;
 
-        Transform interactSpot;
-
         float elap;
 
         public ResupplyState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
@@ -22,10 +20,6 @@ namespace AssassinBot
         public override void Enter()
         {
             Debug.Log("RESUPPLY: gathering supplies");
-
-            interactSpot = GameObject.Find("Resupply Station").transform.Find("Interact Spot");
-
-            main.gameObject.transform.position = interactSpot.position;
 
             elap = 0f;
         }

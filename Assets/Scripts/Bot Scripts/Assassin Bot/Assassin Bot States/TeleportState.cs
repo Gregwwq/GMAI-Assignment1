@@ -4,18 +4,19 @@ using System.Collections.Generic;
 
 namespace AssassinBot
 {
-    public class PursueState : FSMState<string>
+    public class TeleportState : FSMState<string>
     {
-        const string Name = "Pursue";
+        const string Name = "Teleport";
 
         AssassinBotFSM main;
 
         Transform bot, target;
         Quaternion lookRotation;
+        Vector3 flippedRotation;
 
         float elap;
 
-        public PursueState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
+        public TeleportState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
         {
             main = _main;
             bot = main.gameObject.transform;
@@ -24,33 +25,27 @@ namespace AssassinBot
         public override void Enter()
         {
             target = main.EliminationTarget.transform;
+            flippedRotation = target.eulerAngles + 180f * Vector3.up;
             elap = 0f;
-            Debug.Log("PURSUE: chasing down the target!");
+            Debug.Log("TELEPORT: getting in range to teleport");
         }
 
         public override void Execute()
         {
-            if (Vector3.Distance(bot.position, target.position) <= 10f)
+            if (Vector3.Distance(bot.position, target.position) <= 4f)
             {
-                target.gameObject.GetComponent<TargetBotFSM>().TriggerTargeted();
-            }
-            
-            if (Vector3.Distance(bot.position, target.position) <= 8f)
-            {
-                if (main.Weapon == AssassinBotFSM.Arsenal.ThrowingKnife)
+                Debug.Log("TELEPORT: teleporting...");
+
+                if (elap >= 0.3f)
                 {
-                    Debug.Log("PURSUE: getting ready to throw the knife");
+                    bot.position = (target.position + target.forward);
                     
-                    if (elap >= 0.5f)
-                    {
-                        fsm.SetState("Eliminate");
-                    }
-                    else elap += Time.deltaTime;
+                    bot.eulerAngles = flippedRotation;
+
+                    Debug.Log("TELEPORT: brandishing the sword...");
+                    fsm.SetState("Eliminate");
                 }
-                else if (main.Weapon == AssassinBotFSM.Arsenal.Sword)
-                {
-                    fsm.SetState("Teleport");
-                }
+                else elap += Time.deltaTime;
             }
             else
             {
