@@ -24,6 +24,7 @@ namespace TargetBot
         public override void Enter()
         {
             targetLocation = bot.position;
+            main.ChangeColor(Color.green);
         }
 
         public override void Execute()

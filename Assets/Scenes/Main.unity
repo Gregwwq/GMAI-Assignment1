@@ -810,6 +810,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49584102111918167, guid: 5f724c3458e09c745a3f7070a42fc8bc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6078322262556999279, guid: 5f724c3458e09c745a3f7070a42fc8bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6078322262754624889, guid: 5f724c3458e09c745a3f7070a42fc8bc, type: 3}
       propertyPath: m_Name
       value: AssassinBot

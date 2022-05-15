@@ -10,17 +10,12 @@ namespace AssassinBot
 
         AssassinBotFSM main;
         TargetBotFSM targetScript;
-        
-        GameObject original, disguise;
 
         float elap;
 
         public EliminateState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
         {
             main = _main;
-
-            original = main.gameObject.transform.Find("Original").gameObject;
-            disguise = main.gameObject.transform.Find("Disguise").gameObject;
         }
 
         public override void Enter()
@@ -60,13 +55,19 @@ namespace AssassinBot
             Debug.Log("ELIMINATE: target has been eliminated");
             main.EliminationTarget = null;
             main.UnequipWeapon();
-            ChangeToOriginal();
+            main.ChangeToOriginal();
+
+            TriggerTargetBotsChase();
         }
 
-        void ChangeToOriginal()
+        void TriggerTargetBotsChase()
         {
-            original.SetActive(true);
-            disguise.SetActive(false);
+            GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
+
+            foreach (GameObject target in targets)
+            {
+                target.GetComponent<TargetBotFSM>().TriggerChase();
+            }
         }
     }
 }

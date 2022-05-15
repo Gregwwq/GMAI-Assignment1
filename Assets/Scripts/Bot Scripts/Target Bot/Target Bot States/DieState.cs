@@ -22,6 +22,8 @@ namespace TargetBot
 
         public override void Enter()
         {
+            main.gameObject.tag = "DeadTarget";
+
             main.ChangeColor(Color.black);
 
             ToppleToTheSide();

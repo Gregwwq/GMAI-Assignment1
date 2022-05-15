@@ -8,14 +8,19 @@ namespace AssassinBot
     {
         const string Name = "Idle";
 
-        public IdleState(FSM<string> _fsm) : base(_fsm, Name)
-        {
+        AssassinBotFSM main;
 
+        public IdleState(FSM<string> _fsm, AssassinBotFSM _main) : base(_fsm, Name)
+        {
+            main = _main;
         }
 
         public override void Enter()
         {
             Debug.Log("IDLE: waiting for targets...");
+
+            main.InvisActive = false;
+            main.DecoyActive = false;
         }
 
         public override void Execute()

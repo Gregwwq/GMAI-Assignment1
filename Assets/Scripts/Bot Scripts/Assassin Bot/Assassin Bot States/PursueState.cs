@@ -35,7 +35,7 @@ namespace AssassinBot
                 target.gameObject.GetComponent<TargetBotFSM>().TriggerTargeted();
             }
             
-            if (Vector3.Distance(bot.position, target.position) <= 8f)
+            if (Vector3.Distance(bot.position, target.position) <= 6f)
             {
                 if (main.Weapon == AssassinBotFSM.Arsenal.ThrowingKnife)
                 {

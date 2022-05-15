@@ -28,10 +28,12 @@ public class TargetBotFSM : MonoBehaviour
 
         wanderState = new WanderState(fsm, this);
         fleeState = new FleeState(fsm, this);
+        chaseState = new ChaseState(fsm, this);
         dieState = new DieState(fsm, this);
 
         fsm.AddState(wanderState);
         fsm.AddState(fleeState);
+        fsm.AddState(chaseState);
         fsm.AddState(dieState);
 
         fsm.SetState("Wander");
@@ -53,6 +55,11 @@ public class TargetBotFSM : MonoBehaviour
         fsm.SetState("Die");
     }
 
+    public void TriggerChase()
+    {
+        fsm.SetState("Chase");
+    }
+
     public void ChangeColor(Color color)
     {
         head.GetComponent<Renderer>().material.color = color;
@@ -64,5 +71,10 @@ public class TargetBotFSM : MonoBehaviour
         {
             renderer.material.color = color;
         }
+    }
+
+    public void ReturnToWander()
+    {
+        fsm.SetState("Wander");
     }
 }

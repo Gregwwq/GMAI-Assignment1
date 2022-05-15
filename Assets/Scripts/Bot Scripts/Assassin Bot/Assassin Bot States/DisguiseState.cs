@@ -33,7 +33,7 @@ namespace AssassinBot
         {
             if(elap >= 1f)
             {
-                ChangeToDisguise();
+                main.ChangeToDisguise();
                 fsm.SetState("Select Weapon");
             }
             else elap += Time.deltaTime;
@@ -42,12 +42,7 @@ namespace AssassinBot
         public override void Exit()
         {
             Debug.Log("DISGUISE: disguise done");
-        }
-
-        void ChangeToDisguise()
-        {
-            original.SetActive(false);
-            disguise.SetActive(true);
+            Debug.Log("DISGUISE: " + main.DisguiseCount + " disguise left");
         }
     }
 }

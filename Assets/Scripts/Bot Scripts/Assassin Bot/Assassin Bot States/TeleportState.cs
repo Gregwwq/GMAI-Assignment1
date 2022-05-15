@@ -32,7 +32,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
-            if (Vector3.Distance(bot.position, target.position) <= 4f)
+            if (Vector3.Distance(bot.position, target.position) <= 3f)
             {
                 Debug.Log("TELEPORT: teleporting...");
 

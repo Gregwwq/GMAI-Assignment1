@@ -30,7 +30,7 @@ namespace AssassinBot
         {
             if (elap >= 1f)
             {
-                choice = 0;//Random.Range(0, 2);
+                choice = Random.Range(0, 3);
                 Proceed();
             }
             else elap += Time.deltaTime;
@@ -54,7 +54,8 @@ namespace AssassinBot
                 case 1:
                     if (main.ThrowingKnives < 1)
                     {
-                        choice = Random.Range(0, 1) == 0 ? 0 : 2;
+                        Debug.Log("SELECT: ran out of throwing knives, selecting another weapon");
+                        choice = Random.Range(0, 2) == 0 ? 0 : 2;
                         Proceed();
                         return;
                     }
@@ -67,7 +68,8 @@ namespace AssassinBot
                 case 2:
                     if (main.SniperBullets < 1)
                     {
-                        choice = Random.Range(0, 1);
+                        Debug.Log("SELECT: ran out of sniper bullets, selecting another weapon");
+                        choice = Random.Range(0, 2);
                         Proceed();
                         return;
                     }
