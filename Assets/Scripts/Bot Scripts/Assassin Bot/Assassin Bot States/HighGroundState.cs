@@ -28,6 +28,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // if the assasin bot has reached the high ground, change state
             if (Vector3.Distance(bot.position, highGround.position) <= 2f)
             {
                 bot.position = highGround.Find("Standing Spot").position;
@@ -35,11 +36,14 @@ namespace AssassinBot
             }
             else
             {
+                // setting the target rotation to face the high ground locations
                 lookRotation = Quaternion.LookRotation((highGround.position - bot.position), Vector3.up);
 
+                // moving towards high ground location
                 bot.position =
                     Vector3.MoveTowards(bot.position, highGround.position, main.Speed * Time.deltaTime);
                 
+                // smoothly rotating towards high ground location
                 bot.rotation =
                     Quaternion.RotateTowards(bot.rotation, lookRotation, main.RotateSpeed * Time.deltaTime);
             }

@@ -44,8 +44,10 @@ public class AssassinBotFSM : MonoBehaviour
 
     void Start()
     {
+        // creating the fsm
         fsm = new FSM<string>();
 
+        // creating the states for the fsm
         idleState = new IdleState(fsm, this);
         prepareState = new PrepareState(fsm, this);
         resupplyState = new ResupplyState(fsm, this);
@@ -62,6 +64,7 @@ public class AssassinBotFSM : MonoBehaviour
         invisibleState = new InvisibleState(fsm, this);
         suicideState = new SuicideState(fsm, this);
 
+        // adding the states to the fsm
         fsm.AddState(idleState);
         fsm.AddState(prepareState);
         fsm.AddState(resupplyState);
@@ -78,8 +81,10 @@ public class AssassinBotFSM : MonoBehaviour
         fsm.AddState(invisibleState);
         fsm.AddState(suicideState);
 
+        // setting the starting state to IDLE
         fsm.SetState("Idle");
 
+        // assigning the respective parts of the assassin bot
         original = transform.Find("Original").gameObject;
         disguise = transform.Find("Disguise").gameObject;
         invisible = transform.Find("Invisible").gameObject;
@@ -91,6 +96,7 @@ public class AssassinBotFSM : MonoBehaviour
         fsm.Update();
     }
 
+    // functions for equipping the various weapons
     public void EquipSword()
     { Weapon = Arsenal.Sword; }
 
@@ -100,15 +106,18 @@ public class AssassinBotFSM : MonoBehaviour
     public void EquipSniper()
     { Weapon = Arsenal.Sniper; }
 
+    // function for unequipping all weapons
     public void UnequipWeapon()
     { Weapon = Arsenal.None; }
 
+    // function to consume a decoy charge
     public void UseDecoy()
     {
         DecoyCount--;
         DecoyActive = true;
     }
 
+    // function to change into disguise and use a disguise charge
     public void ChangeToDisguise()
     {
         original.SetActive(false);
@@ -118,6 +127,7 @@ public class AssassinBotFSM : MonoBehaviour
         DisguiseCount--;
     }
 
+    // function to activate invisibility and use a invisibility charge
     public void ChangeToInvisible()
     {
         original.SetActive(false);
@@ -128,6 +138,7 @@ public class AssassinBotFSM : MonoBehaviour
         InvisActive = true;
     }
 
+    // function to change back to the original look after a short delay
     public void ChangeToOriginal()
     { changeCor = StartCoroutine(ChangeToOriginal_Cor()); }
     IEnumerator ChangeToOriginal_Cor()
@@ -139,11 +150,13 @@ public class AssassinBotFSM : MonoBehaviour
         invisible.SetActive(false);
     }
 
+    // function to change state to suicide
     public void TriggerSuicide()
     {
         fsm.SetState("Suicide");
     }
 
+    // function for the assassin bot to commit suicide
     public void ChangeToDead()
     {
         StopCoroutine(changeCor);

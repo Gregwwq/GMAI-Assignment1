@@ -21,21 +21,26 @@ public class TargetBotFSM : MonoBehaviour
 
     void Start()
     {
+        // assigning the respective parts of the target bot
         head = transform.Find("Head").gameObject;
         body = transform.Find("Body").gameObject;
 
+        //  creating the fsm
         fsm = new FSM<string>();
 
+        // creating the states
         wanderState = new WanderState(fsm, this);
         fleeState = new FleeState(fsm, this);
         chaseState = new ChaseState(fsm, this);
         dieState = new DieState(fsm, this);
 
+        // adding the states to the fsm
         fsm.AddState(wanderState);
         fsm.AddState(fleeState);
         fsm.AddState(chaseState);
         fsm.AddState(dieState);
 
+        // setting the default state to WANDER
         fsm.SetState("Wander");
     }
 
@@ -44,22 +49,26 @@ public class TargetBotFSM : MonoBehaviour
         fsm.Update();
     }
 
+    // function to make the target bot flee
     public void TriggerTargeted()
     {
         Speed = 1.5f;
         fsm.SetState("Flee");
     }
 
+    // function to kill the target bot
     public void TriggerDie()
     {
         fsm.SetState("Die");
     }
 
+    // function to make the target bot start to chase
     public void TriggerChase()
     {
         fsm.SetState("Chase");
     }
 
+    // function to change the color of the target bot except for its wheels
     public void ChangeColor(Color color)
     {
         head.GetComponent<Renderer>().material.color = color;
@@ -73,6 +82,7 @@ public class TargetBotFSM : MonoBehaviour
         }
     }
 
+    // function to reset the target bot back to WANDER
     public void ReturnToWander()
     {
         fsm.SetState("Wander");

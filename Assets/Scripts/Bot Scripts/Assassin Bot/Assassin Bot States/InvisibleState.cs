@@ -26,6 +26,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // becoming invisible after a short delay
             if (elap >= 0.5f)
             {
                 main.ChangeToInvisible();

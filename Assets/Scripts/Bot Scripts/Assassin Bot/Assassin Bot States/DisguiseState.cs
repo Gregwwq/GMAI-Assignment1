@@ -31,6 +31,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // adding a slight delay to signify putting on of the disguise
             if(elap >= 1f)
             {
                 main.ChangeToDisguise();

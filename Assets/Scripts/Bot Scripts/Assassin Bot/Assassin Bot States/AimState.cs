@@ -29,6 +29,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // aiming at the head of the elimination target for a moment before changing state
             if (elap >= 1.9f)
             {
                 fsm.SetState("Eliminate");

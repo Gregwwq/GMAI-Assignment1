@@ -31,12 +31,14 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // once 6 decoys have been deployed, change state
             if (numOfDecoys >= 6)
             {
                 fsm.SetState("Escape");
                 return;
             }
 
+            // deploying a decoy after a short delay
             if (elap >= 0.2f)
             {
                 DeployDecoy();
@@ -46,15 +48,19 @@ namespace AssassinBot
 
         public override void Exit()
         {
+            // using up a decoy skill charge
             main.UseDecoy();
 
             Debug.Log("DECOY: all decoys have been deployed");
             Debug.Log("DECOY: " + main.DecoyCount + " decoy skill charges left");
         }
 
+        // function to deploy a decoy
         void DeployDecoy()
         {
             Debug.Log("DECOY: deploying a decoy");
+
+            // instantiating a decoy at the assassins current location
             GameObject.Instantiate(decoyPrefab, main.gameObject.transform.position, Quaternion.identity);
             numOfDecoys++;
             elap = 0f;

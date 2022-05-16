@@ -26,6 +26,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // delaying for 3 seconds to mimic resupplying process
             if (elap <= 3f)
             {
                 Debug.Log("RESUPPLY: resupplying... time left: " + Mathf.Round(3f - elap) + "s");

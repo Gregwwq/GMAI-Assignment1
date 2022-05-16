@@ -22,10 +22,12 @@ namespace TargetBot
 
         public override void Enter()
         {
+            // setting the target bot to have the dead tag
             main.gameObject.tag = "DeadTarget";
 
             main.ChangeColor(Color.black);
 
+            // toppling the target bot
             ToppleToTheSide();
         }
 
@@ -39,20 +41,24 @@ namespace TargetBot
 
         }
         
+        // function to topple the target bot to one side
         void ToppleToTheSide()
         {
-            side = Random.Range(0, 1);
+            // getting a random direction to topple, left or right
+            // and toppling in that respective directions
+            side = Random.Range(0, 2);
             switch(side)
             {
                 case 0:
-                    bot.rotation =  Quaternion.Euler(0, 0, 90);
+                    bot.eulerAngles =  bot.eulerAngles + (90f * Vector3.forward);
                     break;
                 
                 case 1:
-                    bot.rotation =  Quaternion.Euler(0, 0, -90);
+                    bot.eulerAngles =  bot.eulerAngles - (90f * Vector3.forward);;
                     break;
             }
 
+            // alleviating the target bot abit to prevent it from clipping into the ground
             bot.position = new Vector3(bot.position.x, 0.4f, bot.position.z);
         }
     }

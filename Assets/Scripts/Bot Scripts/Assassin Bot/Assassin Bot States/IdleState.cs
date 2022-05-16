@@ -25,6 +25,7 @@ namespace AssassinBot
 
         public override void Execute()
         {
+            // checking if there are any target bots in the scene
             GameObject[] targets = GameObject.FindGameObjectsWithTag("Target");
             if (targets.Length != 0) fsm.SetState("Prepare");
         }
